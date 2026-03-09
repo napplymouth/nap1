@@ -1,0 +1,38 @@
+
+User-agent: *
+
+# Public pages
+Allow: /
+Allow: /about
+Allow: /training
+Allow: /get-naloxone
+Allow: /emergency
+Allow: /events
+Allow: /news
+Allow: /shop
+Allow: /volunteer
+Allow: /resources
+Allow: /faq
+Allow: /partners
+Allow: /contact
+Allow: /professionals/join
+Allow: /booking
+
+# Private pages - login, dashboards, accounts
+Disallow: /admin
+Disallow: /admin/login
+Disallow: /admin/dashboard
+Disallow: /members/login
+Disallow: /members/register
+Disallow: /members/dashboard
+Disallow: /members/resources
+Disallow: /members/elearning
+Disallow: /volunteers/login
+Disallow: /volunteers/dashboard
+Disallow: /professionals/login
+Disallow: /professionals/dashboard
+Disallow: /checkout
+Disallow: /manage-booking
+Disallow: /thank-you
+
+Sitemap: https://example.com/sitemap.xml
