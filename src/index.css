@@ -1,0 +1,277 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ============================================================
+   PRINT STYLESHEET — Safer Injection Guide
+   Hides navigation, share buttons, sticky bars, modals, maps,
+   and CTAs so the saved PDF looks clean and polished.
+   ============================================================ */
+
+@media print {
+
+  /* --- Reset & base --- */
+  *,
+  *::before,
+  *::after {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  html, body {
+    font-size: 11pt;
+    line-height: 1.5;
+    color: #111 !important;
+    background: #fff !important;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* --- Page margins --- */
+  @page {
+    size: A4;
+    margin: 18mm 16mm 18mm 16mm;
+  }
+
+  /* --- Hide everything that shouldn't print --- */
+
+  /* Top navigation */
+  nav,
+  header,
+  [class*="SiteNav"],
+  .sticky {
+    display: none !important;
+  }
+
+  /* Sticky share bar (the bar that sticks to the top) */
+  .sticky.top-0 {
+    display: none !important;
+  }
+
+  /* Share modal overlay */
+  .fixed.inset-0 {
+    display: none !important;
+  }
+
+  /* Toast notification */
+  .fixed.bottom-6 {
+    display: none !important;
+  }
+
+  /* All share / social buttons sections */
+  /* Teal share banner below hero */
+  section.bg-teal-700,
+  /* Bottom share CTA card */
+  section.bg-gray-50.border-t {
+    display: none !important;
+  }
+
+  /* Hero share button */
+  button[onClick],
+  button:has(.ri-share-forward-2-line),
+  button:has(.ri-share-forward-line) {
+    display: none !important;
+  }
+
+  /* Share option buttons (WhatsApp, Email, SMS, Facebook, Copy Link) */
+  button:has(.ri-whatsapp-line),
+  button:has(.ri-mail-line),
+  button:has(.ri-message-2-line),
+  button:has(.ri-facebook-line),
+  button:has(.ri-links-line) {
+    display: none !important;
+  }
+
+  /* Emergency red banner at very top */
+  .bg-red-600.text-white.py-3 {
+    display: none !important;
+  }
+
+  /* Google Maps iframe */
+  iframe {
+    display: none !important;
+  }
+
+  /* "Need More Support?" CTA gradient section */
+  section.bg-gradient-to-br.from-teal-600 {
+    display: none !important;
+  }
+
+  /* Download form section */
+  #download-guide form,
+  #download-guide button[type="submit"] {
+    display: none !important;
+  }
+
+  /* Hide the download form column entirely, keep the PDF info card */
+  #download-guide .order-1.lg\\:order-2 {
+    display: none !important;
+  }
+
+  /* Hide "Additional Info" cards below download section */
+  #download-guide .mt-12.grid {
+    display: none !important;
+  }
+
+  /* FAQ toggle buttons — show all answers open */
+  .bg-white.rounded-xl.shadow-sm.border.border-gray-200.overflow-hidden button {
+    pointer-events: none;
+  }
+
+  /* Always show FAQ answers */
+  .px-6.pb-5.text-gray-600 {
+    display: block !important;
+  }
+
+  /* Hide map container */
+  .lg\\:col-span-2 iframe,
+  div[style*="height: 600px"] {
+    display: none !important;
+  }
+
+  /* --- Print-friendly layout --- */
+
+  /* Remove max-width constraints so content fills the page */
+  .max-w-7xl,
+  .max-w-4xl,
+  .max-w-3xl {
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Avoid page breaks inside cards */
+  .rounded-xl,
+  .rounded-2xl,
+  li,
+  tr {
+    break-inside: avoid;
+  }
+
+  /* Section headings start on a new page if needed */
+  section {
+    break-before: auto;
+    padding-top: 12pt !important;
+    padding-bottom: 12pt !important;
+  }
+
+  h2 {
+    break-before: page;
+    font-size: 16pt !important;
+    margin-top: 0 !important;
+  }
+
+  h3 {
+    font-size: 13pt !important;
+  }
+
+  h4 {
+    font-size: 11pt !important;
+  }
+
+  /* Keep hero section but simplify it */
+  section.relative.bg-gradient-to-br {
+    background: #0d9488 !important;
+    padding: 20pt 0 16pt !important;
+  }
+
+  section.relative.bg-gradient-to-br .absolute {
+    display: none !important;
+  }
+
+  /* Reduce hero button row to just text links */
+  section.relative.bg-gradient-to-br .flex.flex-wrap.items-center.justify-center.gap-4 {
+    display: none !important;
+  }
+
+  /* Print header — shown only in print */
+  .print-header {
+    display: block !important;
+    text-align: center;
+    padding: 8pt 0 12pt;
+    border-bottom: 2pt solid #0d9488;
+    margin-bottom: 16pt;
+  }
+
+  /* Print footer on every page */
+  .print-footer {
+    display: block !important;
+  }
+
+  /* Links — show URL after link text */
+  a[href^="http"]::after,
+  a[href^="https"]::after {
+    content: " (" attr(href) ")";
+    font-size: 8pt;
+    color: #555;
+    word-break: break-all;
+  }
+
+  /* But not for buttons styled as links */
+  button a::after {
+    content: none;
+  }
+
+  /* Tables — keep borders visible */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th, td {
+    border: 0.5pt solid #ccc;
+    padding: 4pt 6pt;
+    font-size: 9pt;
+  }
+
+  /* Colour backgrounds — keep them for readability */
+  .bg-teal-50  { background-color: #f0fdfa !important; }
+  .bg-teal-100 { background-color: #ccfbf1 !important; }
+  .bg-teal-600 { background-color: #0d9488 !important; }
+  .bg-red-50   { background-color: #fff1f2 !important; }
+  .bg-amber-50 { background-color: #fffbeb !important; }
+  .bg-orange-50{ background-color: #fff7ed !important; }
+  .bg-emerald-50 { background-color: #ecfdf5 !important; }
+
+  /* Ensure text on coloured backgrounds is readable */
+  .text-white { color: #fff !important; }
+
+  /* Remove sticky positioning */
+  .sticky, [class*="sticky"] {
+    position: static !important;
+  }
+
+  /* Remove fixed positioning */
+  .fixed, [class*="fixed"] {
+    position: static !important;
+    display: none !important;
+  }
+
+  /* Reduce grid gaps for print */
+  .gap-6 { gap: 8pt !important; }
+  .gap-8 { gap: 10pt !important; }
+
+  /* Simplify grid to single column where needed */
+  @supports (display: grid) {
+    .grid.lg\\:grid-cols-3 {
+      grid-template-columns: 1fr !important;
+    }
+  }
+}
